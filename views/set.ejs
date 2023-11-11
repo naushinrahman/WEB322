@@ -1,0 +1,49 @@
+<%- include('partials/head') %>
+
+<body tabindex="-1">
+  <%- include('partials/navbar', {page: '' }) %>
+
+  <br />
+  <div class="container mx-auto">
+    <header class="hero bg-base-200 rounded-lg p-6">
+      <div class="hero-content text-center ">
+        <div class="max-w-md">
+          <h1 class="text-5xl font-bold"><%= set.name %></h1>
+          <p class="py-6">Below, you will find detailed information about the set: <%= set.name %></p>
+        </div>
+      </div>
+    </header>
+    <br />
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <img class="w-full rounded-lg" src=<%=set.img_url %> />
+      </div>
+      <div class="prose">
+        <p>
+          <span class="font-bold">Set Name: </span> <%= set.name %> <br>
+          <span class="font-bold">Year Released: </span> <%= set.year %> <br>
+          <span class="font-bold">Theme: </span> <%= set.theme %> <br>
+          <span class="font-bold">Number of Parts: </span> <%= set.num_parts %> <br><br>
+
+          <span id="quote"><span id="quoteContent"></span><br><em><span id="quoteAuthor"></em></span></span>
+          <br><br>
+          <a class="btn btn-primary btn-sm" href="#" onclick="history.back(); return false;">RETURN</a>
+        </p>
+
+      </div>
+
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        fetch('https://quotable.io/random')
+          .then(response => response.json())
+          .then(data => {
+            document.getElementById('quoteContent').innerText = data.content;
+            document.getElementById('quoteAuthor').innerText = `- ${data.author}`;
+          });
+      });
+    </script>
+
+</body>
+
+<%- include('partials/footer') %>
